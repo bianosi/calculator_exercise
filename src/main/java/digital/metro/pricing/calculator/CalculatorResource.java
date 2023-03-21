@@ -1,17 +1,19 @@
 package digital.metro.pricing.calculator;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.math.BigDecimal;
 
 @RestController
 public class CalculatorResource {
 
-    private BasketCalculatorService basketCalculatorService;
+    private final BasketCalculatorService basketCalculatorService;
 
-    @Autowired
     public CalculatorResource(BasketCalculatorService basketCalculatorService) {
         this.basketCalculatorService = basketCalculatorService;
     }
@@ -26,8 +28,8 @@ public class CalculatorResource {
         return basketCalculatorService.calculateArticle(new BasketEntry(articleId, BigDecimal.ONE), null);
     }
 
-    @GetMapping("/calculator/getarticlepriceforcustomer")
-    public BigDecimal getArticlePriceForCustomer(@RequestParam String articleId, @RequestParam String customerId) {
+    @GetMapping("/calculator/article/{articleId}/customer/{customerId}")
+    public BigDecimal getArticlePriceForCustomer(@PathVariable String articleId, @PathVariable String customerId) {
         return basketCalculatorService.calculateArticle(new BasketEntry(articleId, BigDecimal.ONE), customerId);
     }
 }

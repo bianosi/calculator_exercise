@@ -9,9 +9,6 @@ public class BasketCalculationResult {
     private Map<String, BigDecimal> pricedBasketEntries;
     private BigDecimal totalAmount;
 
-    private BasketCalculationResult() {
-    }
-
     public BasketCalculationResult(String customerId, Map<String, BigDecimal> pricedBasketEntries, BigDecimal totalAmount) {
         this.customerId = customerId;
         this.pricedBasketEntries = pricedBasketEntries;
